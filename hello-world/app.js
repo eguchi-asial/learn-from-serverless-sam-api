@@ -1,6 +1,5 @@
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
-let response;
 
 /**
  *
@@ -14,20 +13,34 @@ let response;
  * @returns {Object} object - API Gateway Lambda Proxy Output Format
  * 
  */
-exports.lambdaHandler = async (event, context) => {
+exports.helloHandler = async (event, context) => {
     try {
-        // const ret = await axios(url);
-        response = {
+        return {
             'statusCode': 200,
             'body': JSON.stringify({
-                message: 'hello world!!',
-                // location: ret.data.trim()
+                message: 'hello world!!'
             })
         }
     } catch (err) {
         console.log(err);
         return err;
     }
+};
 
-    return response
+exports.testHandler = async (event, context) => {
+    return {
+        'statusCode': 200,
+        'body': JSON.stringify({
+            message: 'test'
+        })
+    };
+};
+
+exports.postImageHandler = async (event, context) => {
+    return {
+        'statusCode': 200,
+        'body': JSON.stringify({
+            message: 'test'
+        })
+    };
 };

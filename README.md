@@ -205,3 +205,10 @@ sam logs -n HelloWorldFunction --stack-name sam-app --tail
 ```
 
 **NOTE**: Alternatively this could be part of package.json scripts section.
+
+
+
+```
+sam package --output-template packaged.yaml --s3-bucket learn-from-failure
+sam deploy --template-file packaged.yaml --region ap-northeast-1 --capabilities CAPABILITY_IAM --stack-name aws-sam-getting-started
+```
