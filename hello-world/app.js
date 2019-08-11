@@ -37,10 +37,11 @@ exports.testHandler = async (event, context) => {
 };
 
 exports.postImageHandler = async (event, context) => {
+    console.log('post image')
     return {
         'statusCode': 200,
         'body': JSON.stringify({
-            message: 'test'
+            message: '201'
         })
     };
 };

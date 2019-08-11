@@ -40,7 +40,7 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: hello-world/
-      Handler: app.postHandler
+      Handler: app.postImageHandler
       Runtime: nodejs8.10
       Events:
         HelloWorld:
