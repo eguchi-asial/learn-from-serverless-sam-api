@@ -209,6 +209,6 @@ sam logs -n HelloWorldFunction --stack-name sam-app --tail
 
 
 ```
-sam package --output-template packaged.yaml --s3-bucket learn-from-failure
+sam package --output-template packaged.yaml --s3-bucket [your-bucket-name]
 sam deploy --template-file packaged.yaml --region ap-northeast-1 --capabilities CAPABILITY_IAM --stack-name aws-sam-getting-started
 ```
