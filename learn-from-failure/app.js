@@ -8,6 +8,10 @@ exports.getImageHandler = async (event, context) => {
     const s3Images = await s3.listObjectsV2(params).promise();
     return {
         'statusCode': 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            'Access-Control-Allow-Methods': 'GET'
+        },
         'body': JSON.stringify({
             message: s3Images || []
         })
@@ -34,6 +38,10 @@ exports.postImageHandler = async (event, context) => {
     const ret = await s3Bucket.putObject(data).promise();
     return {
         'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Access-Control-Allow-Methods': 'POST'
+        },
         'body': JSON.stringify({
             message: '201'
         })
