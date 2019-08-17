@@ -19,7 +19,6 @@ exports.postImageHandler = async (event, context) => {
     const s3Bucket = new AWS.S3( { params: {Bucket: 'learn-from-failure'} } );
     const name = decodeURIComponent(event.body.split('name=')[1].split('&')[0]);
     const uploadFile = decodeURIComponent(event.body.split('uploadImage=')[1]);
-    console.log('post image', uploadFile);
     // ファイルとして必要な情報だけを抽出
     const matches = uploadFile.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     // BufferでBase64decodeしてバイナリに変換
@@ -33,8 +32,6 @@ exports.postImageHandler = async (event, context) => {
         Body: imageBuffer
     };
     const ret = await s3Bucket.putObject(data).promise();
-    console.log(ret);
-
     return {
         'statusCode': 200,
         'body': JSON.stringify({
