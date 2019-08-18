@@ -47,3 +47,24 @@ exports.postImageHandler = async (event, context) => {
         })
     };
 };
+
+exports.deleteImageHandler = async (event, context) => {
+    const AWS = require('aws-sdk');
+    const key = decodeURIComponent(event.body.split('key=')[1].split('&')[0]);
+    const s3Bucket = new AWS.S3( { params: {Bucket: 'learn-from-failure' } } );
+    const data = {
+        Key: key
+    }
+
+    const ret = await s3Bucket.deleteObject(data).promise();
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Access-Control-Allow-Methods': 'DELETE'
+        },
+        'body': JSON.stringify({
+            message: '204'
+        })
+    };
+};
