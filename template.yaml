@@ -11,6 +11,11 @@ Globals:
     Runtime: nodejs8.10
     Timeout: 30
     MemorySize: 128
+  Api:
+    EndpointConfiguration: REGIONAL
+    Cors: 
+      AllowOrigin: "'http://localhost:3000'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Requested-With,X-Requested-By,X-Api-Key'"
 
 Resources:
   GetImage:
@@ -21,11 +26,11 @@ Resources:
       Policies:
         - Version: '2012-10-17'
           Statement:
-          - Effect: Allow
-            Action:
-            - 's3:GetObject'
-            - 's3:ListBucket'
-            Resource: "arn:aws:s3:::learn-from-failure"
+            - Effect: Allow
+              Action:
+                - 's3:GetObject'
+                - 's3:ListBucket'
+              Resource: "arn:aws:s3:::learn-from-failure"
       Events:
         GetImageApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -40,10 +45,10 @@ Resources:
       Policies:
         - Version: '2012-10-17'
           Statement:
-          - Effect: Allow
-            Action:
-            - 's3:PutObject'
-            Resource: "arn:aws:s3:::learn-from-failure/*"
+            - Effect: Allow
+              Action:
+                - 's3:PutObject'
+              Resource: "arn:aws:s3:::learn-from-failure/*"
       Events:
         PostImageApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -58,13 +63,24 @@ Resources:
       Policies:
         - Version: '2012-10-17'
           Statement:
-          - Effect: Allow
-            Action:
-            - 's3:DeleteObject'
-            Resource: "arn:aws:s3:::learn-from-failure/*"
+            - Effect: Allow
+              Action:
+                - 's3:DeleteObject'
+              Resource: "arn:aws:s3:::learn-from-failure/*"
       Events:
         PostImageApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /images
             Method: delete
+  GetTimeout:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: learn-from-failure/
+      Handler: app.getTimeoutHandler
+      Events:
+        GetTimeoutApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /timeout
+            Method: get

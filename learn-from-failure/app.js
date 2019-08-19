@@ -68,3 +68,12 @@ exports.deleteImageHandler = async (event, context) => {
         })
     };
 };
+
+exports.getTimeoutHandler = async (event, context) => {
+    return {
+        'statusCode': 200,
+        'body': JSON.stringify({
+            message: 'timeout'
+        })
+    };
+};
