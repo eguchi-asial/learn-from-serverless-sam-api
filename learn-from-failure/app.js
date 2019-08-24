@@ -69,7 +69,34 @@ exports.deleteImageHandler = async (event, context) => {
     };
 };
 
-exports.getTimeoutHandler = async (event, context) => {
+exports.getTimeoutHandler1 = async (event, context) => {
+    const timeoutfunc = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log(25000);
+                resolve();
+            }, 25000)
+        });
+    };
+    const ret = await timeoutfunc();
+    return {
+        'statusCode': 200,
+        'body': JSON.stringify({
+            message: 'timsafe'
+        })
+    };
+};
+
+exports.getTimeoutHandler2 = async (event, context) => {
+    const timeoutfunc = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log(30000);
+                resolve();
+            }, 30000)
+        });
+    };
+    const ret = await timeoutfunc();
     return {
         'statusCode': 200,
         'body': JSON.stringify({

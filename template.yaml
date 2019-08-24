@@ -73,11 +73,22 @@ Resources:
           Properties:
             Path: /images
             Method: delete
-  GetTimeout:
+  GetTimeout1:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: learn-from-failure/
-      Handler: app.getTimeoutHandler
+      Handler: app.getTimeoutHandler1
+      Events:
+        GetTimeoutApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /timesafe
+            Method: get
+  GetTimeout2:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: learn-from-failure/
+      Handler: app.getTimeoutHandler2
       Events:
         GetTimeoutApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
