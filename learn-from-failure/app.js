@@ -21,8 +21,8 @@ exports.getImageHandler = async (event, context) => {
 exports.postImageHandler = async (event, context) => {
     const AWS = require('aws-sdk');
     const s3Bucket = new AWS.S3( { params: {Bucket: 'learn-from-failure'} } );
-    const name = decodeURIComponent(event.body.split('name=')[1].split('&')[0]);
-    const uploadFile = decodeURIComponent(event.body.split('uploadImage=')[1]);
+    const name = decodeURIComponent(JSON.parse(event.body).name);
+    const uploadFile = decodeURIComponent(JSON.parse(event.body).uploadImage);
     // ファイルとして必要な情報だけを抽出
     const matches = uploadFile.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     // BufferでBase64decodeしてバイナリに変換
@@ -50,7 +50,7 @@ exports.postImageHandler = async (event, context) => {
 
 exports.deleteImageHandler = async (event, context) => {
     const AWS = require('aws-sdk');
-    const key = decodeURIComponent(event.body.split('key=')[1].split('&')[0]);
+    const key = decodeURIComponent(JSON.parse(event.body).key);
     const s3Bucket = new AWS.S3( { params: {Bucket: 'learn-from-failure' } } );
     const data = {
         Key: key
